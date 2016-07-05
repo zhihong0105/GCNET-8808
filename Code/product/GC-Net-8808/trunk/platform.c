@@ -15,7 +15,7 @@
 #include "global.h"
 #include <stddef.h>
 
-uint8_t _ProductID[] = {0x88,0x10};		//Product ID
+uint8_t _ProductID[] = {0x88,0x3};		//Product ID
 
 const uint8_t * GetProductID(void)
 {
@@ -108,12 +108,29 @@ uint8_t PLATFORM_SysInit()
   gpioInit.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_12|GPIO_Pin_15;
   GPIO_Init(GPIOA, &gpioInit);
 
-  //PB1=RST,PB6=RF_LED,PB7=PLC_LED,PB8=RX_LED,PB9=TX_LED
+  //PB6=RF_LED,PB7=PLC_LED
   gpioInit.GPIO_Mode = GPIO_Mode_OUT;
   gpioInit.GPIO_OType = GPIO_OType_PP;
   gpioInit.GPIO_PuPd = GPIO_PuPd_NOPULL;
   gpioInit.GPIO_Speed = GPIO_Speed_Level_2;
-  gpioInit.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
+  gpioInit.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7;
+  GPIO_Init(GPIOB, &gpioInit);
+
+  //PB8=RX_LED,PB9=TX_LED
+  gpioInit.GPIO_Mode = GPIO_Mode_IN;
+  gpioInit.GPIO_OType = GPIO_OType_PP;
+  gpioInit.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  gpioInit.GPIO_Speed = GPIO_Speed_Level_2;
+  gpioInit.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9;
+  GPIO_Init(GPIOB, &gpioInit);
+
+
+  //PB1=RST, pull up
+  gpioInit.GPIO_Mode = GPIO_Mode_OUT;
+  gpioInit.GPIO_OType = GPIO_OType_PP;
+  gpioInit.GPIO_PuPd = GPIO_PuPd_UP;
+  gpioInit.GPIO_Speed = GPIO_Speed_Level_2;
+  gpioInit.GPIO_Pin = GPIO_Pin_1;
   GPIO_Init(GPIOB, &gpioInit);
 
   //PA1=INT0,PA11=DIO0
@@ -233,7 +250,7 @@ uint8_t PLATFORM_SysInit()
   __enable_irq();
   if (wirelessAble)
   {
-    _ProductID[1] = 0x18;
+    _ProductID[1] = 0x08;
     return (1 << WIRELESS_CAPABILITY_BIT);
   }
   else
@@ -300,30 +317,28 @@ void PLATFORM_InitExtIntr()
 void EXTI4_15_IRQHandler(void)
 {
 
-  LED_RX_ON();
+  LED_RF_ON();
   EXTI_ClearFlag(EXTI_Line11);
   SX1278_IntrHandler();
-  LED_RX_OFF();
+  LED_RF_OFF();
 
 }
 
 
 void EXTI0_1_IRQHandler(void)
 {
-  LED_RX_ON();
   GC2200IntrHandler();
   EXTI_ClearFlag(EXTI_Line1);
-  LED_RX_OFF();
 }
 
 
 void EXTI2_3_IRQHandler(void)
 {
 
-  LED_RX_ON();
+  LED_RF_ON();
   EXTI_ClearFlag(EXTI_Line2);
   SX1278_IntrHandler();
-  LED_RX_OFF();
+  LED_RF_OFF();
 
 }
 
@@ -685,7 +700,6 @@ void PLATFORM_SetPWMdutycycle(uint8_t PWMdutycycle)
   _PWMdutycycle=PWMdutycycle;
   PLATFORM_SetPWM(_PWMfreq,PWMdutycycle);
 }
-
 
 
 
