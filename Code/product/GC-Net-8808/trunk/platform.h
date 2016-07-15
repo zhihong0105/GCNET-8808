@@ -77,8 +77,8 @@ void PLATFORM_ScheduleGC2200Rx(void);
 #define LED_TX_ON() GPIO_SetBits(GPIOB,GPIO_Pin_9)
 #define LED_TX_OFF() GPIO_ResetBits(GPIOB,GPIO_Pin_9)
 
-#define LED_RF_ON() GPIO_ResetBits(GPIOB,GPIO_Pin_6)
-#define LED_RF_OFF() GPIO_SetBits(GPIOB,GPIO_Pin_6)
+#define LED_RF_OFF() GPIO_ResetBits(GPIOB,GPIO_Pin_6)
+#define LED_RF_ON() GPIO_SetBits(GPIOB,GPIO_Pin_6)
 
 #define PIN_INT_TEST()  (READ_GPIO_PIN(SX1278_D0))
 #define PIN_INT_TEST2()  (READ_GPIO_PIN(SX1278_D1))
