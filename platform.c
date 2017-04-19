@@ -15,7 +15,11 @@
 #include "global.h"
 #include <stddef.h>
 
-uint8_t _ProductID[] = {0x88,0x3};		//Product ID
+#ifdef SPI_LORA
+uint8_t _ProductID[] = {0x88,0x8};		//Product ID
+#else
+uint8_t _ProductID[] = {0x88,0x0};		//Product ID
+#endif
 
 const uint8_t * GetProductID(void)
 {
@@ -245,12 +249,13 @@ uint8_t PLATFORM_SysInit()
 
 //==============================================================================================
 
-  wirelessAble = InitSX1278();
+#ifdef SPI_LORA
+  wirelessAble=true;
+#endif
 
   __enable_irq();
   if (wirelessAble)
   {
-    _ProductID[1] = 0x08;
     return (1 << WIRELESS_CAPABILITY_BIT);
   }
   else
@@ -319,7 +324,9 @@ void EXTI4_15_IRQHandler(void)
 
   LED_RF_ON();
   EXTI_ClearFlag(EXTI_Line11);
+#ifdef SPI_LORA
   SX1278_IntrHandler();
+#endif
   LED_RF_OFF();
 
 }
@@ -337,7 +344,9 @@ void EXTI2_3_IRQHandler(void)
 
   LED_RF_ON();
   EXTI_ClearFlag(EXTI_Line2);
+#ifdef SPI_LORA
   SX1278_IntrHandler();
+#endif
   LED_RF_OFF();
 
 }
