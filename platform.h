@@ -217,4 +217,6 @@ void PLATFORM_SetPowerRelay(uint8_t state);
 
 #define SPI_LORA
 
+#define GC8808
+
 #endif /* PLATFORM_H_ */
