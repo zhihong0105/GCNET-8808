@@ -6,7 +6,7 @@
  * @Copyright GridComm-PLC (C) 2013
  *****************************************************************************/
 
-#ifndef PLATFORM_H_
+#ifndef PLATFORM_H_ //qinlimin
 #define PLATFORM_H_
 
 #include "stm32f0xx_conf.h"
