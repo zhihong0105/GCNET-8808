@@ -7,7 +7,7 @@
  *****************************************************************************/
 
 #include "platform.h"  /* ABCDE */
-#include "uart.h"
+#include "uart.h"      //这是覃立敏改的
 #include "gc2200.h"
 #include "plcm.h"
 #include "wireless.h"
