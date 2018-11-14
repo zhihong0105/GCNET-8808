@@ -14,7 +14,7 @@
 #include "global.h"
 
 #include <stdint.h>
-#include <stdbool.h>
+#include <stdbool.h> /* stdbool.h */
 
 uint8_t PLATFORM_SysInit(void);
 void PLATFORM_ScheduleGC2200Rx(void);
