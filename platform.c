@@ -6,7 +6,7 @@
  * @Copyright GridComm-PLC (C) 2013
  *****************************************************************************/
 
-#include "platform.h"
+#include "platform.h"  /* change 1 */
 #include "uart.h"
 #include "gc2200.h"
 #include "plcm.h"
