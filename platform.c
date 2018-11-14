@@ -6,11 +6,7 @@
  * @Copyright GridComm-PLC (C) 2013
  *****************************************************************************/
 
-<<<<<<<
-#include "platform.h"  //这是覃立敏改的
-=======
-#include "platform.h"  /* change 1 */
->>>>>>>
+#include "platform.h"  /* ABCDE */
 #include "uart.h"
 #include "gc2200.h"
 #include "plcm.h"
