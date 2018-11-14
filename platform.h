@@ -11,7 +11,7 @@
 
 #include "stm32f0xx_conf.h"
 #include "uart.h"
-#include "global.h"  /* global */
+#include "global.h"  /* global */ /* 17:37 */
 
 #include <stdint.h>
 #include <stdbool.h> /* stdbool.h */        /* 17:34 */
